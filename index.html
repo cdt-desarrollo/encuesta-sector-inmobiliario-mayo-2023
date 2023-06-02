@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="assets/faviconCEMDI.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="styles.css">
+  <title>Encuesta Sector Inmobiliario</title>
+</head>
+<body>
+  <nav class="navbar navbar-light bg-light sticky-top" style="display: flex; justify-content: center;">
+    <a class="navbar-brand" href="https://www.facebook.com/CEMDI.METROPOLITANO" target="_blank">
+      <img src="assets/faviconCEMDI.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      CEMDI
+    </a>
+  </nav>
+  <div class="container-fluid d-grid gap-2 p-3" id="deleteDiv">
+    <div id="welcomeInformation">
+      <h1 class="text-left">Centro Metropolitano de Información Económica y Empresarial - Encuesta Sector Inmobiliario Mayo 2023</h1>
+      <h4 class="text-justify" style="padding-bottom: 20px;">Agradecemos de su apoyo en contestar la siguiente encuesta, sus respuestas nos ayudarán para conocer la situación en el sector inmobiliario y posteriormente generar un registro histórico.
+      </h4>
+      <!-- <h4 class="text-justify">Indique la respuesta del mes que corresponda en cada una de las casillas, se presenta de Enero a mayil de 2023.
+      </h4> -->
+      <h4 class="text-danger">Todos los datos que proporcione son confidenciales y se utilizarán únicamente con fines estadísticos.</h4>
+    </div>
+    <div id="personalInformation">
+      <h5 class="fst-italic" style="padding-bottom: 10px;">*Obligatorio</h5>
+      <div class="input-group mb-2" style="padding-bottom: 10px;">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Nombre</span>
+        </div>
+        <input type="text" id ="companyName" class="form-control" placeholder="Opcional" value="">
+      </div>
+      <div class="input-group mb-2" style="padding-bottom: 10px;">
+        <div class="input-group-prepend d-flex">
+          <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">* Empresa</span>
+        </div>
+        <input type="text" id ="staffName" class="form-control" required placeholder="Obligatorio" value="">
+      </div>
+      <div class="input-group mb-2" style="padding-bottom: 10px;">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Correo</span>
+        </div>
+        <input type="text" id ="email" class="form-control" placeholder="Opcional" value="">
+      </div>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-dark text-white" id="inputGroup-sizing-default">Teléfono</span>
+        </div>
+        <input type="text" id ="phone" class="form-control" placeholder="Opcional" value="">
+      </div>
+    </div>
+    <div id="questionsInGrid">
+      <div class="q1">
+        <h5>1.- Represento/trabajo:</h5>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="q1" value="agenteIndependiente" id="agenteIndependiente">
+          <label class="form-check-label">
+            Agente independiente
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="q1" value="agenteEnAgenciaInmboliaria" id="agenteEnAgenciaInmboliaria">
+          <label class="form-check-label">
+            Agente en agencia inmobiliaria
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="q1" value="desarrolloInmobiliario" id="desarrolloInmobiliario">
+          <label class="form-check-label">
+            Desarrollo inmobiliario
+          </label>
+        </div>
+      </div>
+      <div class="q2">
+        <h5>2.- <strong>Durante el mes</strong>, ¿cuántas unidades de <strong>condominios</strong> vendiste?</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>0</th>
+              <td id="may"><input type="radio" name="mayq2" value="0mayq2" id="0mayq2"></td>
+            </tr>
+            <tr>
+              <th>1 a 5</th>
+              <td id="may"><input type="radio" name="mayq2" value="1a5mayq2" id="1a5mayq2"></td>
+            </tr>
+            <tr>
+              <th>6 a 10</th>
+              <td id="may"><input type="radio" name="mayq2" value="6a10mayq2" id="6a10mayq2"></td>
+            </tr>
+            <tr>
+              <th>11 a 15</th>
+              <td id="may"><input type="radio" name="mayq2" value="11a15mayq2" id="11a15mayq2"></td>
+            </tr>
+            <tr>
+              <th>16 a 20</th>
+              <td id="may"><input type="radio" name="mayq2" value="16a20mayq2" id="16a20mayq2"></td>
+            </tr>
+            <tr>
+              <th>21 a 25</th>
+              <td id="may"><input type="radio" name="mayq2" value="21a25mayq2" id="21a25mayq2"></td>
+            </tr>
+            <tr>
+              <th>26 a 30</th>
+              <td id="may"><input type="radio" name="mayq2" value="26a30mayq2" id="26a30mayq2"></td>
+            </tr>
+            <tr>
+              <th>31 a 35</th>
+              <td id="may"><input type="radio" name="mayq2" value="31a35mayq2" id="31a35mayq2"></td>
+            </tr>
+            <tr>
+              <th>36 a 40</th>
+              <td id="may"><input type="radio" name="mayq2" value="36a40mayq2" id="36a40mayq2"></td>
+            </tr>
+            <tr>
+              <th>41 a 45</th>
+              <td id="may"><input type="radio" name="mayq2" value="41a45mayq2" id="41a45mayq2"></td>
+            </tr>
+            <tr>
+              <th>46+</th>
+              <td id="may"><input type="radio" name="mayq2" value="46+mayq2" id="46+mayq2"></td>
+            </tr>
+            <tr>
+              <th>No vendo condominios</th>
+              <td id="may"><input type="radio" name="mayq2" value="novendocondominiosmayq2" id="novendocondominiosmayq2"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q3">
+        <h5>3.- <strong>Durante el mes</strong>, ¿cuántas unidades de <strong>casas</strong> vendiste?</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>0</th>
+              <td id="may"><input type="radio" name="mayq3" value="0mayq3" id="0mayq3"></td>
+            </tr>
+            <tr>
+              <th>1 a 5</th>
+              <td id="may"><input type="radio" name="mayq3" value="1a5mayq3" id="1a5mayq3"></td>
+            </tr>
+            <tr>
+              <th>6 a 10</th>
+              <td id="may"><input type="radio" name="mayq3" value="6a10mayq3" id="6a10mayq3"></td>
+            </tr>
+            <tr>
+              <th>11 a 15</th>
+              <td id="may"><input type="radio" name="mayq3" value="11a15mayq3" id="11a15mayq3"></td>
+            </tr>
+            <tr>
+              <th>16 a 20</th>
+              <td id="may"><input type="radio" name="mayq3" value="16a20mayq3" id="16a20mayq3"></td>
+            </tr>
+            <tr>
+              <th>21 a 25</th>
+              <td id="may"><input type="radio" name="mayq3" value="21a25mayq3" id="21a25mayq3"></td>
+            </tr>
+            <tr>
+              <th>26 a 30</th>
+              <td id="may"><input type="radio" name="mayq3" value="26a30mayq3" id="26a30mayq3"></td>
+            </tr>
+            <tr>
+              <th>31 a 35</th>
+              <td id="may"><input type="radio" name="mayq3" value="31a35mayq3" id="31a35mayq3"></td>
+            </tr>
+            <tr>
+              <th>36 a 40</th>
+              <td id="may"><input type="radio" name="mayq3" value="36a40mayq3" id="36a40mayq3"></td>
+            </tr>
+            <tr>
+              <th>41 a 45</th>
+              <td id="may"><input type="radio" name="mayq3" value="41a45mayq3" id="41a45mayq3"></td>
+            </tr>
+            <tr>
+              <th>46+</th>
+              <td id="may"><input type="radio" name="mayq3" value="46+mayq3" id="46+mayq3"></td>
+            </tr>
+            <tr>
+              <th>No vendo casas</th>
+              <td id="may"><input type="radio" name="mayq3" value="novendocasasmayq3" id="novendocasasmayq3"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q4">
+        <h5>4.- <strong>Durante el mes</strong>, ¿cuántas unidades de <strong>lotes</strong> vendiste?</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>0</th>
+              <td id="may"><input type="radio" name="mayq4" value="0mayq4" id="0mayq4"></td>
+            </tr>
+            <tr>
+              <th>1 a 5</th>
+              <td id="may"><input type="radio" name="mayq4" value="1a5mayq4" id="1a5mayq4"></td>
+            </tr>
+            <tr>
+              <th>6 a 10</th>
+              <td id="may"><input type="radio" name="mayq4" value="6a10mayq4" id="6a10mayq4"></td>
+            </tr>
+            <tr>
+              <th>11 a 15</th>
+              <td id="may"><input type="radio" name="mayq4" value="11a15mayq4" id="11a15mayq4"></td>
+            </tr>
+            <tr>
+              <th>16 a 20</th>
+              <td id="may"><input type="radio" name="mayq4" value="16a20mayq4" id="16a20mayq4"></td>
+            </tr>
+            <tr>
+              <th>21 a 25</th>
+              <td id="may"><input type="radio" name="mayq4" value="21a25mayq4" id="21a25mayq4"></td>
+            </tr>
+            <tr>
+              <th>26 a 30</th>
+              <td id="may"><input type="radio" name="mayq4" value="26a30mayq4" id="26a30mayq4"></td>
+            </tr>
+            <tr>
+              <th>31 a 35</th>
+              <td id="may"><input type="radio" name="mayq4" value="31a35mayq4" id="31a35mayq4"></td>
+            </tr>
+            <tr>
+              <th>36 a 40</th>
+              <td id="may"><input type="radio" name="mayq4" value="36a40mayq4" id="36a40mayq4"></td>
+            </tr>
+            <tr>
+              <th>41 a 45</th>
+              <td id="may"><input type="radio" name="mayq4" value="41a45mayq4" id="41a45mayq4"></td>
+            </tr>
+            <tr>
+              <th>46+</th>
+              <td id="may"><input type="radio" name="mayq4" value="46+mayq4" id="46+mayq4"></td>
+            </tr>
+            <tr>
+              <th>No vendo lotes</th>
+              <td id="may"><input type="radio" name="mayq4" value="novendolotesmayq4" id="novendolotesmayq4"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q5">
+        <h5>5.- ¿Cuál es el promedio de <u>precio total de venta</u> de los <strong>condominios</strong> en tu inventario?</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>$100K a $150K</th>
+              <td id="may"><input type="radio" name="mayq5" value="100Ka150Kmayq5" id="100Ka150Kmayq5"></td>
+            </tr>
+            <tr>
+              <th>$151K a $200K</th>
+              <td id="may"><input type="radio" name="mayq5" value="151Ka200Kmayq5" id="151Ka200Kmayq5"></td>
+            </tr>
+            <tr>
+              <th>$201K a $250K</th>
+              <td id="may"><input type="radio" name="mayq5" value="201Ka250Kmayq5" id="201Ka250Kmayq5"></td>
+            </tr>
+            <tr>
+              <th>$251K a $300K</th>
+              <td id="may"><input type="radio" name="mayq5" value="251Ka300Kmayq5" id="251Ka300Kmayq5"></td>
+            </tr>
+            <tr>
+              <th>$301K a $350K</th>
+              <td id="may"><input type="radio" name="mayq5" value="301Ka350Kmayq5" id="301Ka350Kmayq5"></td>
+            </tr>
+            <tr>
+              <th>$351K a $400K</th>
+              <td id="may"><input type="radio" name="mayq5" value="351Ka400Kmayq5" id="351Ka400Kmayq5"></td>
+            </tr>
+            <tr>
+              <th>$401K a $450K</th>
+              <td id="may"><input type="radio" name="mayq5" value="401Ka450Kmayq5" id="401Ka450Kmayq5"></td>
+            </tr>
+            <tr>
+              <th>$451K a $500K</th>
+              <td id="may"><input type="radio" name="mayq5" value="451Ka500Kmayq5" id="451Ka500Kmayq5"></td>
+            </tr>
+            <tr>
+              <th>$501K+</th>
+              <td id="may"><input type="radio" name="mayq5" value="501K+mayq5" id="501K+mayq5"></td>
+            </tr>
+            <tr>
+              <th>Ninguno, no vendo condominios</th>
+              <td id="may"><input type="radio" name="mayq5" value="ningunonovendocondominiosmayq5" id="ningunonovendocondominiosmayq5"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q6">
+        <h5>6.- ¿Cuál es el promedio de <u>precio total de venta</u> de las <strong>casas</strong> en tu inventario?</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>$100K a $150K</th>
+              <td id="may"><input type="radio" name="mayq6" value="100Ka150Kmayq6" id="100Ka150Kmayq6"></td>
+            </tr>
+            <tr>
+              <th>$151K a $200K</th>
+              <td id="may"><input type="radio" name="mayq6" value="151Ka200Kmayq6" id="151Ka200Kmayq6"></td>
+            </tr>
+            <tr>
+              <th>$201K a $250K</th>
+              <td id="may"><input type="radio" name="mayq6" value="201Ka250Kmayq6" id="201Ka250Kmayq6"></td>
+            </tr>
+            <tr>
+              <th>$251K a $300K</th>
+              <td id="may"><input type="radio" name="mayq6" value="251Ka300Kmayq6" id="251Ka300Kmayq6"></td>
+            </tr>
+            <tr>
+              <th>$301K a $350K</th>
+              <td id="may"><input type="radio" name="mayq6" value="301Ka350Kmayq6" id="301Ka350Kmayq6"></td>
+            </tr>
+            <tr>
+              <th>$351K a $400K</th>
+              <td id="may"><input type="radio" name="mayq6" value="351Ka400Kmayq6" id="351Ka400Kmayq6"></td>
+            </tr>
+            <tr>
+              <th>$401K a $450K</th>
+              <td id="may"><input type="radio" name="mayq6" value="401Ka450Kmayq6" id="401Ka450Kmayq6"></td>
+            </tr>
+            <tr>
+              <th>$451K a $500K</th>
+              <td id="may"><input type="radio" name="mayq6" value="451Ka500Kmayq6" id="451Ka500Kmayq6"></td>
+            </tr>
+            <tr>
+              <th>$501K+</th>
+              <td id="may"><input type="radio" name="mayq6" value="501K+mayq6" id="501K+mayq6"></td>
+            </tr>
+            <tr>
+              <th>Ninguno, no vendo casas</th>
+              <td id="may"><input type="radio" name="mayq6" value="ningunonovendocasasmayq6" id="ningunonovendocasasmayq6"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q7">
+        <h5>7.- ¿Cuál es el promedio de <u>precio total de venta</u> de los <strong>lotes</strong> en tu inventario?</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>$100K a $150K</th>
+              <td id="may"><input type="radio" name="mayq7" value="100Ka150Kmayq7" id="100Ka150Kmayq7"></td>
+            </tr>
+            <tr>
+              <th>$151K a $200K</th>
+              <td id="may"><input type="radio" name="mayq7" value="151Ka200Kmayq7" id="151Ka200Kmayq7"></td>
+            </tr>
+            <tr>
+              <th>$201K a $250K</th>
+              <td id="may"><input type="radio" name="mayq7" value="201Ka250Kmayq7" id="201Ka250Kmayq7"></td>
+            </tr>
+            <tr>
+              <th>$251K a $300K</th>
+              <td id="may"><input type="radio" name="mayq7" value="251Ka300Kmayq7" id="251Ka300Kmayq7"></td>
+            </tr>
+            <tr>
+              <th>$301K a $350K</th>
+              <td id="may"><input type="radio" name="mayq7" value="301Ka350Kmayq7" id="301Ka350Kmayq7"></td>
+            </tr>
+            <tr>
+              <th>$351K a $400K</th>
+              <td id="may"><input type="radio" name="mayq7" value="351Ka400Kmayq7" id="351Ka400Kmayq7"></td>
+            </tr>
+            <tr>
+              <th>$401K a $450K</th>
+              <td id="may"><input type="radio" name="mayq7" value="401Ka450Kmayq7" id="401Ka450Kmayq7"></td>
+            </tr>
+            <tr>
+              <th>$451K a $500K</th>
+              <td id="may"><input type="radio" name="mayq7" value="451Ka500Kmayq7" id="451Ka500Kmayq7"></td>
+            </tr>
+            <tr>
+              <th>$501K+</th>
+              <td id="may"><input type="radio" name="mayq7" value="501K+mayq7" id="501K+mayq7"></td>
+            </tr>
+            <tr>
+              <th>Ninguno, no vendo lotes</th>
+              <td id="may"><input type="radio" name="mayq7" value="ningunonovendolotesmayq7" id="ningunonovendolotesmayq7"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q8">
+        <h5>8.- ¿Qué porcentaje de tu inventario disponible tienes listo para entrega inmediata(llave en mano)?</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>0%</th>
+              <td id="may"><input type="radio" name="mayq8" value="0%mayq8" id="0%mayq8"></td>
+            </tr>
+            <tr>
+              <th>1% - 10%</th>
+              <td id="may"><input type="radio" name="mayq8" value="1%-10%mayq8" id="1%-10%mayq8"></td>
+            </tr>
+            <tr>
+              <th>11% - 20%</th>
+              <td id="may"><input type="radio" name="mayq8" value="11%-20%mayq8" id="11%-20%mayq8"></td>
+            </tr>
+            <tr>
+              <th>21% - 30%</th>
+              <td id="may"><input type="radio" name="mayq8" value="21%-30%mayq8" id="21%-30%mayq8"></td>
+            </tr>
+            <tr>
+              <th>31% - 40%</th>
+              <td id="may"><input type="radio" name="mayq8" value="31%-40%mayq8" id="31%-40%mayq8"></td>
+            </tr>
+            <tr>
+              <th>41% - 50%</th>
+              <td id="may"><input type="radio" name="mayq8" value="41%-50%mayq8" id="41%-50%mayq8"></td>
+            </tr>
+            <tr>
+              <th>51% - 60%</th>
+              <td id="may"><input type="radio" name="mayq8" value="51%-60%mayq8" id="51%-60%mayq8"></td>
+            </tr>
+            <tr>
+              <th>61% - 70%</th>
+              <td id="may"><input type="radio" name="mayq8" value="61%-70%mayq8" id="61%-70%mayq8"></td>
+            </tr>
+            <tr>
+              <th>71% - 80%</th>
+              <td id="may"><input type="radio" name="mayq8" value="71%-80%mayq8" id="71%-80%mayq8"></td>
+            </tr>
+            <tr>
+              <th>81% - 90%</th>
+              <td id="may"><input type="radio" name="mayq8" value="81%-90%mayq8" id="81%-90%mayq8"></td>
+            </tr>
+            <tr>
+              <th>91% - 100%</th>
+              <td id="may"><input type="radio" name="mayq8" value="91%-100%mayq8" id="91%-100%mayq8"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q9">
+        <h5>9.- La forma de pago que más se presentó durante el <strong>mes</strong> fue...</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>Contado</th>
+              <td id="may"><input type="radio" name="mayq9" value="contadomayq9" id="contadomayq9"></td>
+            </tr>
+            <tr>
+              <th>Crédito bancario</th>
+              <td id="may"><input type="radio" name="mayq9" value="creditobancariomayq9" id="creditobancariomayq9"></td>
+            </tr>
+            <tr>
+              <th>Financiamiento directo por el vendedor</th>
+              <td id="may"><input type="radio" name="mayq9" value="financiamientodirectoporelvendedormayq9" id="financiamientodirectoporelvendedormayq9"></td>
+            </tr>
+            <tr>
+              <th>No tuve ventas</th>
+              <td id="may"><input type="radio" name="mayq9" value="notuveventasmayq9" id="notuveventasmayq9"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q10">
+        <h5>10.- En su mayoría, durante el <strong>mes</strong> la edad promedio de tus clientes fue...</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>     
+            </tr>
+            <tr>
+              <th>25 a 35 años</th>
+              <td id="may"><input type="radio" name="mayq10" value="25a35mayq10" id="25a35mayq10"></td>
+            </tr>
+            <tr>
+              <th>36 a 45 años</th>
+              <td id="may"><input type="radio" name="mayq10" value="36a45mayq10" id="36a45mayq10"></td>
+            </tr>
+            <tr>
+              <th>46 a 55 años</th>
+              <td id="may"><input type="radio" name="mayq10" value="46a55mayq10" id="46a55mayq10"></td>
+            </tr>
+            <tr>
+              <th>56 a 65 años</th>
+              <td id="may"><input type="radio" name="mayq10" value="56a65mayq10" id="56a65mayq10"></td>
+            </tr>
+            <tr>
+              <th>66 a 75 años</th>
+              <td id="may"><input type="radio" name="mayq10" value="66a75mayq10" id="66a75mayq10"></td>
+            </tr>
+            <tr>
+              <th>76 años +</th>
+              <td id="may"><input type="radio" name="mayq10" value="76+mayq10" id="76+mayq10"></td>
+            </tr>
+            <tr>
+              <th>No tuve ventas</th>
+              <td id="may"><input type="radio" name="mayq10" value="notuveventasmayq10" id="notuveventasmayq10"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q11">
+        <h5>11.- En su mayoría los compradores te visitan de...</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>California (USA)</th>
+              <td id="may"><input type="radio" name="mayq11" value="californiaUsamayq11" id="californiaUsamayq11"></td>
+            </tr>
+            <tr>
+              <th>Tijuana</th>
+              <td id="may"><input type="radio" name="mayq11" value="tijuanamayq11" id="tijuanamayq11"></td>
+            </tr>
+            <tr>
+              <th>Mexicali</th>
+              <td id="may"><input type="radio" name="mayq11" value="mexicalimayq11" id="mexicalimayq11"></td>
+            </tr>
+            <tr>
+              <th>Tijuana/California</th>
+              <td id="may"><input type="radio" name="mayq11" value="tijuanacaliforniamayq11" id="tijuanacaliforniamayq11"></td>
+            </tr>
+            <tr>
+              <th>Del centro del país</th>
+              <td id="may"><input type="radio" name="mayq11" value="centrodelpaismayq11" id="centrodelpaismayq11"></td>
+            </tr>
+            <tr>
+              <th>Otros</th>
+              <td id="may"><input type="radio" name="mayq11" id="otrosmayq11" onchange="escribirCiudad(this)">
+                <div id="insertCitymayq11"></div>
+              </td>
+            </tr>
+            <tr>
+              <th>No tuve ventas</th>
+              <td id="may"><input type="radio" name="mayq11" value="notuveventasmayq11" id="notuveventasmayq11"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q12">
+        <h5>12.- ¿Cuántas <strong>casas</strong>, tienes disponibles a la venta?</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>0</th>
+              <td id="may"><input type="radio" name="mayq12" value="0mayq12" id="0mayq12"></td>
+            </tr>
+            <tr>
+              <th>1 a 5</th>
+              <td id="may"><input type="radio" name="mayq12" value="1a5mayq12" id="1a5mayq12"></td>
+            </tr>
+            <tr>
+              <th>6 a 10</th>
+              <td id="may"><input type="radio" name="mayq12" value="6a10mayq12" id="6a10mayq12"></td>
+            </tr>
+            <tr>
+              <th>11 a 15</th>
+              <td id="may"><input type="radio" name="mayq12" value="11a15mayq12" id="11a15mayq12"></td>
+            </tr>
+            <tr>
+              <th>16 a 30</th>
+              <td id="may"><input type="radio" name="mayq12" value="16a30mayq12" id="16a30mayq12"></td>
+            </tr>
+            <tr>
+              <th>31 a 50</th>
+              <td id="may"><input type="radio" name="mayq12" value="31a50mayq12" id="31a50mayq12"></td>
+            </tr>
+            <tr>
+              <th>51 a 70</th>
+              <td id="may"><input type="radio" name="mayq12" value="51a70mayq12" id="51a70mayq12"></td>
+            </tr>
+            <tr>
+              <th>71 a 100</th>
+              <td id="may"><input type="radio" name="mayq12" value="71a100mayq12" id="71a100mayq12"></td>
+            </tr>
+            <tr>
+              <th>101 a 150</th>
+              <td id="may"><input type="radio" name="mayq12" value="101a150mayq12" id="101a150mayq12"></td>
+            </tr>
+            <tr>
+              <th>151 a 200</th>
+              <td id="may"><input type="radio" name="mayq12" value="151a200mayq12" id="151a200mayq12"></td>
+            </tr>
+            <tr>
+              <th>No vendo casas</th>
+              <td id="may"><input type="radio" name="mayq12" value="novendocasasmayq12" id="novendocasasmayq12"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q13">
+        <h5>13.- ¿Cuántos <strong>condominios</strong>, tienes disponibles a la venta?</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>0</th>
+              <td id="may"><input type="radio" name="mayq13" value="0mayq13" id="0mayq13"></td>
+            </tr>
+            <tr>
+              <th>1 a 5</th>
+              <td id="may"><input type="radio" name="mayq13" value="1a5mayq13" id="1a5mayq13"></td>
+            </tr>
+            <tr>
+              <th>6 a 10</th>
+              <td id="may"><input type="radio" name="mayq13" value="6a10mayq13" id="6a10mayq13"></td>
+            </tr>
+            <tr>
+              <th>11 a 15</th>
+              <td id="may"><input type="radio" name="mayq13" value="11a15mayq13" id="11a15mayq13"></td>
+            </tr>
+            <tr>
+              <th>16 a 30</th>
+              <td id="may"><input type="radio" name="mayq13" value="16a30mayq13" id="16a30mayq13"></td>
+            </tr>
+            <tr>
+              <th>31 a 50</th>
+              <td id="may"><input type="radio" name="mayq13" value="31a50mayq13" id="31a50mayq13"></td>
+            </tr>
+            <tr>
+              <th>51 a 70</th>
+              <td id="may"><input type="radio" name="mayq13" value="51a70mayq13" id="51a70mayq13"></td>
+            </tr>
+            <tr>
+              <th>71 a 100</th>
+              <td id="may"><input type="radio" name="mayq13" value="71a100mayq13" id="71a100mayq13"></td>
+            </tr>
+            <tr>
+              <th>101 a 150</th>
+              <td id="may"><input type="radio" name="mayq13" value="101a150mayq13" id="101a150mayq13"></td>
+            </tr>
+            <tr>
+              <th>151 a 200</th>
+              <td id="may"><input type="radio" name="mayq13" value="151a200mayq13" id="151a200mayq13"></td>
+            </tr>
+            <tr>
+              <th>No vendo condominios</th>
+              <td id="may"><input type="radio" name="mayq13" value="novendocondominiosmayq13" id="novendocondominiosmayq13"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q14">
+        <h5>14.- ¿Cuántos <strong>lotes</strong>, tienes disponibles a la venta?</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>0</th>
+              <td id="may"><input type="radio" name="mayq14" value="0mayq14" id="0mayq14"></td>
+            </tr>
+            <tr>
+              <th>1 a 5</th>
+              <td id="may"><input type="radio" name="mayq14" value="1a5mayq14" id="1a5mayq14"></td>
+            </tr>
+            <tr>
+              <th>6 a 10</th>
+              <td id="may"><input type="radio" name="mayq14" value="6a10mayq14" id="6a10mayq14"></td>
+            </tr>
+            <tr>
+              <th>11 a 15</th>
+              <td id="may"><input type="radio" name="mayq14" value="11a15mayq14" id="11a15mayq14"></td>
+            </tr>
+            <tr>
+              <th>16 a 30</th>
+              <td id="may"><input type="radio" name="mayq14" value="16a30mayq14" id="16a30mayq14"></td>
+            </tr>
+            <tr>
+              <th>31 a 50</th>
+              <td id="may"><input type="radio" name="mayq14" value="31a50mayq14" id="31a50mayq14"></td>
+            </tr>
+            <tr>
+              <th>51 a 70</th>
+              <td id="may"><input type="radio" name="mayq14" value="51a70mayq14" id="51a70mayq14"></td>
+            </tr>
+            <tr>
+              <th>71 a 100</th>
+              <td id="may"><input type="radio" name="mayq14" value="71a100mayq14" id="71a100mayq14"></td>
+            </tr>
+            <tr>
+              <th>101 a 150</th>
+              <td id="may"><input type="radio" name="mayq14" value="101a150mayq14" id="101a150mayq14"></td>
+            </tr>
+            <tr>
+              <th>151 a 200</th>
+              <td id="may"><input type="radio" name="mayq14" value="151a200mayq14" id="151a200mayq14"></td>
+            </tr>
+            <tr>
+              <th>No vendo lotes</th>
+              <td id="may"><input type="radio" name="mayq14" value="novendolotesmayq14" id="novendolotesmayq14"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q15">
+        <h5>15.- Los compradores en su mayoría...</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>Compran para vivir</th>
+              <td id="may"><input type="radio" name="mayq15" value="compranparavivirmayq15" id="compranparavivirmayq15"></td>
+            </tr>
+            <tr>
+              <th>Compran para rentar</th>
+              <td id="may"><input type="radio" name="mayq15" value="compranpararentarmayq15" id="compranpararentarmayq15"></td>
+            </tr>
+            <tr>
+              <th>Compran como second home</th>
+              <td id="may"><input type="radio" name="mayq15" value="comprancomosecondhomemayq15" id="comprancomosecondhomemayq15"></td>
+            </tr>
+            <tr>
+              <th>Rentan/Second home</th>
+              <td id="may"><input type="radio" name="mayq15" value="rentan/secondhomemayq15" id="rentan/secondhomemayq15"></td>
+            </tr>
+            <tr>
+              <th>Otros</th>
+              <td id="may"><input type="radio" name="mayq15" id="otrosmayq15" onchange="escribirUso(this)">
+                <div id="insertUsemayq15"></div>
+              </td>
+            </tr>
+            <tr>
+              <th>No tuve ventas</th>
+              <td id="may"><input type="radio" name="mayq15" value="notuveventasmayq15" id="notuveventasmayq15"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q16">
+        <h5>16.- <strong>Durante el mes</strong>, la mayor parte de los clientes los generó por...</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>Internet y redes sociales</th>
+              <td id="may"><input type="radio" name="mayq16" value="internetyredessocialesmayq16" id="internetyredessocialesmayq16"></td>
+            </tr>
+            <tr>
+              <th>Referidos</th>
+              <td id="may"><input type="radio" name="mayq16" value="referidosmayq16" id="referidosmayq16"></td>
+            </tr>
+            <tr>
+              <th>Llamada</th>
+              <td id="may"><input type="radio" name="mayq16" value="llamadamayq16" id="llamadamayq16"></td>
+            </tr>
+            <tr>
+              <th>Terrestre (walk-in)</th>
+              <td id="may"><input type="radio" name="mayq16" value="terrestrewalkinmayq16" id="terrestrewalkinmayq16"></td>
+            </tr>
+            <tr>
+              <th>No tuve ventas</th>
+              <td id="may"><input type="radio" name="mayq16" value="notuveventasmayq16" id="notuveventasmayq16"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="q17">
+        <h5>17.- <strong>En el caso de desarrolladores o fraccionamientos</strong>, ¿qué promedio de visitas semanales recibiste?</h5>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <td></td>
+              <th id="may">May</th>
+            </tr>
+            <tr>
+              <th>0</th>
+              <td id="may"><input type="radio" name="mayq17" value="0mayq17" id="0mayq17"></td>
+            </tr>
+            <tr>
+              <th>1 a 6</th>
+              <td id="may"><input type="radio" name="mayq17" value="1a6mayq17" id="1a6mayq17"></td>
+            </tr>
+            <tr>
+              <th>7 a 12</th>
+              <td id="may"><input type="radio" name="mayq17" value="7a12mayq17" id="7a12mayq17"></td>
+            </tr>
+            <tr>
+              <th>13 a 18</th>
+              <td id="may"><input type="radio" name="mayq17" value="13a18mayq17" id="13a18mayq17"></td>
+            </tr>
+            <tr>
+              <th>19 a 24</th>
+              <td id="may"><input type="radio" name="mayq17" value="19a24mayq17" id="19a24mayq17"></td>
+            </tr>
+            <tr>
+              <th>25 a 30</th>
+              <td id="may"><input type="radio" name="mayq17" value="25a30mayq17" id="25a30mayq17"></td>
+            </tr>
+            <tr>
+              <th>31+</th>
+              <td id="may"><input type="radio" name="mayq17" value="31+mayq17" id="31+mayq17"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <button type="button" onclick="getValues()" class="btn btn-primary" id="buttonSend">
+      Enviar
+    </button>
+  </div>
+  <div id="divToInsertHTMLTags"></div>
+</body>
+<script src="main.js"></script>
+<script>
+  // setMonthsWithChechboxInTable()
+  // getValuesFromSelectionMonths()
+</script>
+</html>
